@@ -10,11 +10,18 @@ public class BallBehavior : MonoBehaviour
     Rigidbody2D ballRigidBody;
     bool isLaunched = false;
     [SerializeField]
+    GameObject startMenu;
+    [SerializeField]
+    GameObject gameOver;
+    [SerializeField]
     GameObject player;
+    [SerializeField]
     TMP_Text livesText;
 
     void Start()
     {
+        startMenu.SetActive(true);
+        gameOver.SetActive(false);
         ballRigidBody = GetComponent<Rigidbody2D>();
         ballRigidBody.velocity = Vector2.zero;
     }
@@ -49,6 +56,7 @@ public class BallBehavior : MonoBehaviour
         if (other.CompareTag("Bottom"))
         {
             LoseLife();
+            ResetBall();
         }
     }
 
@@ -69,7 +77,7 @@ public class BallBehavior : MonoBehaviour
 
     private void DisplayLives()
     {
-       livesText.text = "Lives: " + lives;
+       livesText.text = lives.ToString();
     }
 
     private void ResetBall()
@@ -82,6 +90,6 @@ public class BallBehavior : MonoBehaviour
 
     private void GameOver()
     {
-        //GameOver
+        gameOver.SetActive(true);
     }
 }
