@@ -12,6 +12,8 @@ public class BallBehavior : MonoBehaviour
     [SerializeField]
     GameObject startMenu;
     [SerializeField]
+    GameObject inGameCanvas;
+    [SerializeField]
     GameObject gameOver;
     [SerializeField]
     GameObject player;
@@ -20,6 +22,7 @@ public class BallBehavior : MonoBehaviour
 
     void Start()
     {
+        inGameCanvas.SetActive(false);
         startMenu.SetActive(true);
         gameOver.SetActive(false);
         ballRigidBody = GetComponent<Rigidbody2D>();
