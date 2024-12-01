@@ -35,6 +35,11 @@ public class BallBehavior : MonoBehaviour
         {
             LaunchBall();
         }
+
+        if (lives <= 0)
+        {
+            gameOver.SetActive(true);
+        }
     }
 
     private void LaunchBall()
