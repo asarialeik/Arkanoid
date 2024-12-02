@@ -21,6 +21,7 @@ public class ScoreManager : MonoBehaviour
     public void AddPoints(int points)
     {
         score = score + points;
+        print(points);
     }
 
     public void ResetScore()

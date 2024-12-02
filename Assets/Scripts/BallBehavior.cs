@@ -55,6 +55,7 @@ public class BallBehavior : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Block"))
         {
+            //BrickScript.PointsCalc();
             Destroy(collision.gameObject);
         }
     }
