@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class BallBehavior : MonoBehaviour
 {
@@ -10,8 +11,6 @@ public class BallBehavior : MonoBehaviour
     Rigidbody2D ballRigidBody;
     bool isLaunched = false;
     [SerializeField]
-    GameObject startMenu;
-    [SerializeField]
     GameObject inGameCanvas;
     [SerializeField]
     GameObject gameOver;
@@ -19,11 +18,12 @@ public class BallBehavior : MonoBehaviour
     GameObject player;
     [SerializeField]
     TMP_Text livesText;
+    ScoreManager scoreManager;
+    BrickScript brickScript;
 
     void Start()
     {
         inGameCanvas.SetActive(false);
-        startMenu.SetActive(true);
         gameOver.SetActive(false);
         ballRigidBody = GetComponent<Rigidbody2D>();
         ballRigidBody.velocity = Vector2.zero;
@@ -55,8 +55,18 @@ public class BallBehavior : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Block"))
         {
-            //BrickScript.PointsCalc();
-            Destroy(collision.gameObject);
+            int brickPoints = collision.gameObject.GetComponent<BrickScript>().brickPoints;
+            int brickLife = collision.gameObject.GetComponent<BrickScript>().brickLife;
+            if (brickLife <= 0)
+            {
+                Destroy(collision.gameObject);
+                ScoreManager.Instance.AddPoints(brickPoints);
+            }
+            else
+            {
+                brickScript.SubstractLife();
+            }
+
         }
     }
 
@@ -100,5 +110,11 @@ public class BallBehavior : MonoBehaviour
     private void GameOver()
     {
         gameOver.SetActive(true);
+    }
+
+    public void ReloadScene()
+    {
+        string currentSceneName = SceneManager.GetActiveScene().name;
+        SceneManager.LoadScene(currentSceneName);
     }
 }

@@ -5,7 +5,9 @@ using UnityEngine;
 public class BrickScript : MonoBehaviour
 {
     [SerializeField]
-    public int brickType;
+    public int brickPoints;
+    [SerializeField]
+    public int brickLife;
 
     void Start()
     {
@@ -17,10 +19,8 @@ public class BrickScript : MonoBehaviour
 
     }
 
-    public void PointsCalc()
+    public void SubstractLife()
     {
-        //int points = BrickManager.PointsForBrick(brickType);
-        //ScoreManager.Instance.AddPoints(points);
+        brickLife = brickLife -1;
     }
-
 }
